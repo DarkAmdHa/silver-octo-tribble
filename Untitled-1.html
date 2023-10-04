@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1440px;
+            margin: auto;
+        }
+
+        .gridContainer {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            max-width: 400px;
+        }
+
+        .gridContainer .grid {
+            min-width: 40px;
+            height: 40px;
+            border: 1px solid rgb(49 49 49 / 80%);
+            background: #d6fff0;
+            transition: 0.5s ease;
+        }
+
+        .rangeContainer {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 18px;
+            font-family: sans-serif;
+        }
+
+        .rangeContainer input[type="range"] {
+            width: 310px;
+        }
+
+        .gridContainer .grid.varied {
+            background: #b0d8c9;
+        }
+
+        span.inputValue {
+            position: absolute;
+            background: #eaeaea;
+            top: -35px;
+            padding: 5px 10px;
+            pointer-events: none;
+            transition: 0.5s ease;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        .rangeContainer {
+            position: relative;
+        }
+
+        span.inputValue:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border: 10px solid #eaeaea;
+            border-color: #eaeaea transparent transparent transparent;
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        span.inputValue.is-hidden {
+            opacity: 0;
+        }
+    </style>
+    <div class="container">
+        <div class="gridContainer">
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+            <div class="grid"></div>
+        </div>
+        <div class="rangeContainer">
+            <span class="">0%</span>
+            <input type="range" min="0" max="100">
+            <span class="">100%</span>
+            <span class="inputValue is-hidden">50%</span>
+        </div>
+
+    </div>
+    <script>
+        const rangeInput = document.querySelector('.rangeContainer input');
+        const inputValue = document.querySelector('.rangeContainer .inputValue');
+
+
+        const resetState = () => {
+            document.querySelectorAll('.grid').forEach(el => el.classList.remove('varied'))
+        }
+
+        const randomize = (e={target:{value:50}}) => {
+            resetState();
+            inputValue.innerText = `${e.target.value}%`
+            inputValue.classList.remove('is-hidden');
+            const value = e.target.value;
+            const gridBoxes = document.querySelectorAll('.grid');
+            let index = 0;
+            while (index < value) {
+                let randomIndex = Math.floor(Math.random() * 100);
+                while (gridBoxes[randomIndex].classList.contains('varied')) {
+                    randomIndex = Math.floor(Math.random() * 100);
+                }
+                gridBoxes[randomIndex].classList.add('varied');
+                index++;
+            }
+        }
+
+        rangeInput.addEventListener('input', randomize)
+
+
+        rangeInput.addEventListener("mouseup", function () {
+            inputValue.classList.add('is-hidden');
+        });
+
+        rangeInput.addEventListener("touchend", function () {
+            inputValue.classList.add('is-hidden');
+        });
+
+        randomize()
+
+    </script>
+</body>
+
+</html>
